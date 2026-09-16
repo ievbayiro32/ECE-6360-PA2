@@ -30,7 +30,7 @@ ImguiManager::ImguiManager(const std::string &title, int width, int height) {
     throw std::runtime_error("ImguiManager: glfwInit() failed");
 
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
 
   window_ = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
   if (!window_) {
