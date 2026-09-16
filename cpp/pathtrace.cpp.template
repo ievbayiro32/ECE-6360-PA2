@@ -1,0 +1,50 @@
+// Standard library includes
+#include <algorithm>
+#include <cmath>
+#include <vector>
+
+// Project includes
+#include <tira/graphics/camera.h>
+
+extern std::vector<unsigned char> image_buffer;
+extern size_t s_exp;
+
+tira::graphics::Camera camera;
+
+/**
+ * This function is called when the program is loaded. Use it to initialize
+ * the path tracer as necessary. For example, you can load models (like
+ * spheres), initialize data structures, etc.
+ */
+void InitializePathTracer() {
+
+  // allocate the image buffer and clear it (set it to zero)
+  if (s_exp > 0) {
+    image_buffer.resize(pow(2, s_exp) * pow(2, s_exp) * 3);
+    std::fill(image_buffer.begin(), image_buffer.end(), 0);
+  }
+}
+
+/**
+ * This function is called every time the user interface is rendered. When
+ * this function returns, the value of the image buffer will be displayed.
+ * Make sure that it returns in a reasonable time so that you have some
+ * visual feedback ever frame.
+ */
+void UpdatePathTracer() {
+
+  size_t s = std::pow(2, s_exp);
+  float dx = 1.0f / s;
+
+  for (size_t yi = 0; yi < s; yi++) {
+    for (size_t xi = 0; xi < s; xi++) {
+
+      glm::vec3 rayvec = camera.Ray(-0.5f + xi * dx, -0.5f + yi * dx);
+
+      // set the associated pixel color based on the ray direction
+      image_buffer[yi * s * 3 + xi * 3 + 0] = std::abs(rayvec.x) * 255;
+      image_buffer[yi * s * 3 + xi * 3 + 1] = std::abs(rayvec.y) * 255;
+      image_buffer[yi * s * 3 + xi * 3 + 2] = std::abs(rayvec.z) * 255;
+    }
+  }
+}

@@ -29,8 +29,9 @@ find_package(OpenGL REQUIRED)
 # anything newer has to be loaded at runtime. glad does that; see cpp/opengl.h.
 find_package(glad CONFIG REQUIRED)
 
-add_executable(mie
-                            cpp/raytrace.cpp
+add_executable(raytrace
+                            cpp/pathtrace.cpp
+                            cpp/display.cpp
                             cpp/imgui_manager.cpp
 )
 

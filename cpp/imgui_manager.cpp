@@ -3,11 +3,14 @@
 #include <cstdio>
 #include <stdexcept>
 
-#include "opengl.h"
+// GLAD must be included before GLFW3
+#include <glad/glad.h>
+
+#include <GLFW/glfw3.h>
+
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
-#include <implot.h>
 
 namespace {
 void GlfwErrorCallback(int error, const char *description) {
@@ -52,11 +55,6 @@ ImguiManager::ImguiManager(const std::string &title, int width, int height) {
   ImGui::CreateContext();
   ImGui::StyleColorsDark();
 
-  // ImPlot draws the timing curves in the profiling window. Its context is
-  // built on top of ImGui's, so it has to be created after and (below)
-  // destroyed before it.
-  ImPlot::CreateContext();
-
   ImGui_ImplGlfw_InitForOpenGL(window_, true);
   ImGui_ImplOpenGL3_Init("#version 130");
 
@@ -87,7 +85,6 @@ ImguiManager::~ImguiManager() {
 
   ImGui_ImplOpenGL3_Shutdown();
   ImGui_ImplGlfw_Shutdown();
-  ImPlot::DestroyContext();
   ImGui::DestroyContext();
 
   glfwDestroyWindow(window_);
