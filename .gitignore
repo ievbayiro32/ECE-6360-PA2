@@ -1,1 +1,14 @@
-build
+.vs/
+out/
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+x64/
+Debug/
+Release/
+*.exe
+*.obj
+*.pdb
+*.ilk
